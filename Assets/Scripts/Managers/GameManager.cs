@@ -4,9 +4,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    //UI
+  
     //pause menu
-
+    
     //Option menu
 
 
