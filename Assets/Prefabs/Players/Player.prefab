@@ -55,6 +55,7 @@ MonoBehaviour:
   JumpMax: 1
   JumpSpeed: 6
   Gravity: 9.8
+  PunchBox: {fileID: 0}
 --- !u!33 &4772046237945043328
 MeshFilter:
   m_ObjectHideFlags: 0

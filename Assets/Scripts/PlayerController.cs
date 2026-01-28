@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour 
 {
     [SerializeField] CharacterController controller;
 
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("MISC")]
     [SerializeField] float Gravity = 9.8f;
+    [SerializeField] GameObject PunchBox;
+
 
     //Original Stats
     int PlayerOGHearts;
@@ -59,9 +62,11 @@ public class PlayerController : MonoBehaviour
 
         Jump();
         controller.Move(JumpVelocity * Time.deltaTime);
+
+        Punch();
     }
 
-    //jump
+
     void Jump()
     {
         if (Input.GetButton("Jump") && JumpCount <= JumpMax)
@@ -72,9 +77,44 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    //punch
+    void Punch()
+    {
+        if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("F"))
+        {
+            StartCoroutine(AttackHitBox());
+        }
+        
+        //bug test
+        if(Input.GetButtonDown("G") && PunchBox.activeSelf == false)
+        {
+            PunchBox.SetActive(true);
+        }
+        else if (Input.GetButtonDown("G") && PunchBox.activeSelf == true)
+        {
+            PunchBox.SetActive(false);
+        }
+    }
 
     //jumpPunch
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            IDamage Enemy = other.GetComponent<IDamage>();
+            Enemy.TakeDamage(1);    
+        }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        //Add logic for when the player exits the trigger
+    }
+
+    IEnumerator AttackHitBox()
+    {
+        PunchBox.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        PunchBox.SetActive(false);
+    }
 }
