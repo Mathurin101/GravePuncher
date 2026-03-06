@@ -58,12 +58,12 @@ public class PlayerController : MonoBehaviour
             MoveDirection = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
         controller.Move(MoveDirection * Speed * Time.deltaTime);
 
-        //if you wanted to try to make it move one direction at a time
-
         Jump();
         controller.Move(JumpVelocity * Time.deltaTime);
 
         Punch();
+
+
     }
 
 
@@ -79,33 +79,35 @@ public class PlayerController : MonoBehaviour
 
     void Punch()
     {
-        if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("F"))
+        if (Input.GetButtonDown("Fire1") || Input.GetKey("f"))
         {
             StartCoroutine(AttackHitBox());
         }
         
         //bug test
-        if(Input.GetButtonDown("G") && PunchBox.activeSelf == false)
+        if(Input.GetKey("g") && PunchBox.activeSelf == false)
         {
             PunchBox.SetActive(true);
         }
-        else if (Input.GetButtonDown("G") && PunchBox.activeSelf == true)
+        else if (Input.GetKey("h") && PunchBox.activeSelf == true)
         {
             PunchBox.SetActive(false);
         }
     }
 
     //jumpPunch
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
+    /*
+        private void OnTriggerEnter(Collider other)
         {
-            IDamage Enemy = other.GetComponent<IDamage>();
-            Enemy.TakeDamage(1);    
-        }
-    }
 
+               if (other.CompareTag("Enemy"))
+              {
+                  IDamage Enemy = other.GetComponent<IDamage>(); Debug.Log("I touch an Enemy---- Player Script");
+                Enemy.TakeDamage(1);    
+              }
+
+        }
+    */
     private void OnTriggerExit(Collider other)
     {
         //Add logic for when the player exits the trigger

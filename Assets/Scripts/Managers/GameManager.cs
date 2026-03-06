@@ -9,12 +9,15 @@ public class GameManager : MonoBehaviour
 
     //Option menu
 
+    //Score menu
 
-  
+    //Shop menu (UI)
+
+    //Inventory menu
 
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Awake is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         
