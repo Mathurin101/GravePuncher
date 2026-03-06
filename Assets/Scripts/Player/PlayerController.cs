@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour 
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
 
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
             //Apply Gravity
             JumpVelocity.y -= (Gravity * Time.deltaTime);
         }
-            MoveDirection = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
+        MoveDirection = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
         controller.Move(MoveDirection * Speed * Time.deltaTime);
 
         Jump();
@@ -83,9 +83,9 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(AttackHitBox());
         }
-        
+
         //bug test
-        if(Input.GetKey("g") && PunchBox.activeSelf == false)
+        if (Input.GetKey("g") && PunchBox.activeSelf == false)
         {
             PunchBox.SetActive(true);
         }
@@ -96,18 +96,12 @@ public class PlayerController : MonoBehaviour
     }
 
     //jumpPunch
-    /*
-        private void OnTriggerEnter(Collider other)
-        {
 
-               if (other.CompareTag("Enemy"))
-              {
-                  IDamage Enemy = other.GetComponent<IDamage>(); Debug.Log("I touch an Enemy---- Player Script");
-                Enemy.TakeDamage(1);    
-              }
+    private void OnTriggerEnter(Collider other)
+    {
 
-        }
-    */
+    }
+
     private void OnTriggerExit(Collider other)
     {
         //Add logic for when the player exits the trigger
