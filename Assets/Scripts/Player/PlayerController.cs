@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
         Punch();
 
+        //projectile
 
     }
 
@@ -95,7 +96,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //jumpPunch
+    //FireBallPunch
+    void FireBallPunch()
+    {
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {

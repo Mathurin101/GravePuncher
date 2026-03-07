@@ -26,9 +26,17 @@ public class EnemyScript : MonoBehaviour, IDamage
     {
         Health -= DamageTaken;
 
-        if (Health <= 0)
+        if (Health <= 0 && Type == EnemyType.Grave)
         {
             GameManager.Instance.AddMeter(true);
+            GameManager.Instance.AddScore(100);
+            Destroy(gameObject);
+        }
+
+        if (Health <= 0 && Type == EnemyType.Zombie)
+        {
+            GameManager.Instance.AddMeter(true);
+            GameManager.Instance.AddScore(500);
             Destroy(gameObject);
         }
     }

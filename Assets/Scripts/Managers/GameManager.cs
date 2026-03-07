@@ -11,11 +11,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image[] BarMeter;
     int Counter;
 
+    [SerializeField] TextMeshProUGUI Score;
+    int HighestScore;
+
     //pause menu
+    //shows highest score
 
     //Option menu
-
-    //Score menu
 
     //Shop menu (UI)
 
@@ -29,20 +31,20 @@ public class GameManager : MonoBehaviour
         //needed to initiate this class
         if (!Instance) { Instance = this; }
 
+        Score.text = "00000";
 
         Counter = BarMeter.Length;
-
         //turn off all the meters
         for (int i = 0; i < BarMeter.Length; i++)
         {
             AddMeter(false);
         }
-        Debug.Log("The count: " + Counter);
     }
 
     // Update is called once per frame
     void Update()
     {
+
 
     }
 
@@ -50,17 +52,43 @@ public class GameManager : MonoBehaviour
     {
         if (AddOne)//sets the current meter true
         {
-            Debug.Log("The count was added: " + Counter);
             Counter++;
-            BarMeter[Counter -1].gameObject.SetActive(true);
+            BarMeter[Counter - 1].gameObject.SetActive(true);
         }
         else//sets the current meter false
         {
-            Debug.Log("The count was subtracted: " + Counter);
-            BarMeter[Counter -1].gameObject.SetActive(false);
+            BarMeter[Counter - 1].gameObject.SetActive(false);
             Counter--;
         }
 
 
+    }
+
+
+    public void AddScore(int AddedNumber)
+    {
+        if ((int.Parse(Score.text) + AddedNumber) > 1000)
+        {
+            Score.text = "0" + (int.Parse(Score.text) + AddedNumber).ToString();
+            SetHighestScore();
+
+        }else if ((int.Parse(Score.text) + AddedNumber) > 10000)
+        {
+            Score.text = (int.Parse(Score.text) + AddedNumber).ToString();
+            SetHighestScore();
+        }
+        else
+        {
+            Score.text = "00" + (int.Parse(Score.text) + AddedNumber).ToString();
+            SetHighestScore();
+        }
+    }
+
+    void SetHighestScore()
+    {
+        if (HighestScore < int.Parse(Score.text))
+        {
+            HighestScore = int.Parse(Score.text);
+        }
     }
 }
