@@ -17,14 +17,10 @@ public class Attacks : MonoBehaviour
 
     private void OnTriggerEnter(Collider Other)
     {
-        
-        Debug.Log("The touch: " + Other.tag);
-
         IDamage Enemy = Other.GetComponent<IDamage>();
 
         if (Enemy == null) {return;} 
         Enemy.TakeDamage(1);
-
     }
 }
 

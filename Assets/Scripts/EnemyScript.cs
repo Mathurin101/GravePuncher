@@ -28,15 +28,8 @@ public class EnemyScript : MonoBehaviour, IDamage
 
         if (Health <= 0)
         {
+            GameManager.Instance.AddMeter(true);
             Destroy(gameObject);
-        }
-        else if (Type == EnemyType.Zombie)
-        {
-            Debug.Log("Zombie took damage");
-        }
-        else if (Type == EnemyType.Grave)
-        {
-            Debug.Log("Grave took damage");
         }
     }
 
