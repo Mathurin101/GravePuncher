@@ -99,9 +99,9 @@ public class PlayerController : MonoBehaviour
     }
 
     //FireBallPunch
-    void FireBallPunch()
+    void FireBallPunch(int Meters = 2)
     {
-        int MetersNeeded = 1;
+        int MetersNeeded = Meters;
         if (Input.GetKeyDown("e"))
         {
             if (GameManager.Instance.GetMeterAmount() < MetersNeeded)
