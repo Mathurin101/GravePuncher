@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
     void FireBallPunch()
     {
         int MetersNeeded = 1;
-        if (Input.GetKey("e"))//TODO:fires multiple times when press once
+        if (Input.GetKeyDown("e"))
         {
             if (GameManager.Instance.GetMeterAmount() < MetersNeeded)
             {
