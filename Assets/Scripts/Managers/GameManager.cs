@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Player UI/items")]
     [SerializeField] Image[] BarMeter;
+    [SerializeField] Image[] NotBarMeter;
     public int Counter;
 
     [SerializeField] TextMeshProUGUI Score;
@@ -118,5 +119,29 @@ public class GameManager : MonoBehaviour
         TextShown.gameObject.SetActive(false);
     }
 
+    public IEnumerator DisplayWarningMeters(int MetersNeeded, float TimeLength = 0.2f)
+    {
+        //almost flashes 
+        for (int i = 0; i < MetersNeeded; i++)
+        {
+            NotBarMeter[i].gameObject.SetActive(true);
+        } //turns on
+        yield return new WaitForSeconds(TimeLength);
+        for (int i = 0; i < MetersNeeded; i++)
+        {
+            NotBarMeter[i].gameObject.SetActive(false);
+        } //turns off
 
+        yield return new WaitForSeconds(TimeLength);
+        for (int i = 0; i < MetersNeeded; i++)
+        {
+            NotBarMeter[i].gameObject.SetActive(true);
+        } //turns on
+
+        yield return new WaitForSeconds(TimeLength);
+        for (int i = 0; i < MetersNeeded; i++)
+        {
+            NotBarMeter[i].gameObject.SetActive(false);
+        } //turns off
+    }
 }

@@ -88,14 +88,14 @@ public class PlayerController : MonoBehaviour
         }
 
         //bug test
-        if (Input.GetKey("g") && PunchBox.activeSelf == false)
+       /* if (Input.GetKey("g") && PunchBox.activeSelf == false)
         {
             PunchBox.SetActive(true);
         }
         else if (Input.GetKey("h") && PunchBox.activeSelf == true)
         {
             PunchBox.SetActive(false);
-        }
+        }*/
     }
 
     //FireBallPunch
@@ -107,7 +107,8 @@ public class PlayerController : MonoBehaviour
             if (GameManager.Instance.GetMeterAmount() < MetersNeeded)
             {
                 //display "Not enough meter"
-                StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabel));
+                StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabel, 0.2f));
+                StartCoroutine(GameManager.Instance.DisplayWarningMeters(MetersNeeded));
                 return;
             }
             else
