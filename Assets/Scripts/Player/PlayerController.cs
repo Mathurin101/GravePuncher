@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
         Punch();
 
         //projectile
+        FireBallPunch();
 
     }
 
@@ -99,7 +100,20 @@ public class PlayerController : MonoBehaviour
     //FireBallPunch
     void FireBallPunch()
     {
-
+        if (Input.GetKey("e"))
+        {
+            if (GameManager.Instance.GetMeterAmount() < 3)
+            {
+                //display "Not enough meter"
+                StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabel));
+                return;
+            }
+            else
+            {
+                Debug.Log("Fire Ball");
+            }
+        }
+        
     }
 
     private void OnTriggerEnter(Collider other)

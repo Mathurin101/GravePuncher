@@ -1,4 +1,4 @@
-using System.Threading;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Player UI/items")]
     [SerializeField] Image[] BarMeter;
-    int Counter;
+    public int Counter;
 
     [SerializeField] TextMeshProUGUI Score;
     int HighestScore;
@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour
 
     //Inventory menu
 
+    [Header("Warning Texts")]
+    [SerializeField] public TextMeshProUGUI NoMeterLabel;
+
+
+    //[Header("MISC")]
+
 
 
     // Awake is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,14 +37,17 @@ public class GameManager : MonoBehaviour
         //needed to initiate this class
         if (!Instance) { Instance = this; }
 
-        Score.text = "00000";
 
         Counter = BarMeter.Length;
+
+        Score.text = "00000";
         //turn off all the meters
         for (int i = 0; i < BarMeter.Length; i++)
         {
             AddMeter(false);
         }
+
+        NoMeterLabel.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -48,17 +57,19 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void AddMeter(bool AddOne = true)
+    public void AddMeter(bool AddOne = true)//, int MeterTaken = 0// take meter for powered up moves
     {
         if (AddOne)//sets the current meter true
         {
             Counter++;
             BarMeter[Counter - 1].gameObject.SetActive(true);
         }
-        else//sets the current meter false
+        else //sets the current meter false
         {
             BarMeter[Counter - 1].gameObject.SetActive(false);
             Counter--;
+
+
         }
 
 
@@ -72,7 +83,8 @@ public class GameManager : MonoBehaviour
             Score.text = "0" + (int.Parse(Score.text) + AddedNumber).ToString();
             SetHighestScore();
 
-        }else if ((int.Parse(Score.text) + AddedNumber) > 10000)
+        }
+        else if ((int.Parse(Score.text) + AddedNumber) > 10000)
         {
             Score.text = (int.Parse(Score.text) + AddedNumber).ToString();
             SetHighestScore();
@@ -91,4 +103,23 @@ public class GameManager : MonoBehaviour
             HighestScore = int.Parse(Score.text);
         }
     }
+
+    public int GetMeterAmount()
+    {
+        return Counter;
+    }
+
+    public IEnumerator DisplayWarning(TextMeshProUGUI TextShown, float TimeLength = 0.5f)
+    {
+        //almost flashes 
+        TextShown.gameObject.SetActive(true);
+        yield return new WaitForSeconds(TimeLength);
+        TextShown.gameObject.SetActive(false);
+
+        TextShown.gameObject.SetActive(true);
+        yield return new WaitForSeconds(TimeLength);
+        TextShown.gameObject.SetActive(false);
+    }
+
+
 }
