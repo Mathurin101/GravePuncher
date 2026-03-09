@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void AddMeter(bool AddOne = true)//, int MeterTaken = 0// take meter for powered up moves
+    public void AddMeter(bool AddOne = true)
     {
         if (AddOne)//sets the current meter true
         {
@@ -68,10 +68,7 @@ public class GameManager : MonoBehaviour
         {
             BarMeter[Counter - 1].gameObject.SetActive(false);
             Counter--;
-
-
         }
-
 
     }
 
@@ -115,7 +112,7 @@ public class GameManager : MonoBehaviour
         TextShown.gameObject.SetActive(true);
         yield return new WaitForSeconds(TimeLength);
         TextShown.gameObject.SetActive(false);
-
+        yield return new WaitForSeconds(TimeLength);
         TextShown.gameObject.SetActive(true);
         yield return new WaitForSeconds(TimeLength);
         TextShown.gameObject.SetActive(false);

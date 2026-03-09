@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class PlayerController : MonoBehaviour
 {
@@ -100,9 +101,10 @@ public class PlayerController : MonoBehaviour
     //FireBallPunch
     void FireBallPunch()
     {
-        if (Input.GetKey("e"))
+        int MetersNeeded = 1;
+        if (Input.GetKey("e"))//TODO:fires multiple times when press once
         {
-            if (GameManager.Instance.GetMeterAmount() < 3)
+            if (GameManager.Instance.GetMeterAmount() < MetersNeeded)
             {
                 //display "Not enough meter"
                 StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabel));
@@ -111,6 +113,10 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Debug.Log("Fire Ball");
+                for (int i = 0; i < MetersNeeded; i++)
+                {
+                    GameManager.Instance.AddMeter(false);
+                }
             }
         }
         
