@@ -48,14 +48,14 @@ public class Attacks : MonoBehaviour
 
     void MovingAttack()
     {
-
+        //move forward(z) on the z aixs
         gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.forward * 10;        
 
         Debug.Log("Spawn Location: " + gameObject.transform.position.x + "," 
                                      + gameObject.transform.position.y + "," 
                                      + gameObject.transform.position.z);
         
-        if (this) { Destroy(gameObject, 3); }    
+        if (this) { Destroy(gameObject, 1.1f); }    
     }
 }
 
