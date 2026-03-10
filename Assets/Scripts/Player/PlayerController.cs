@@ -107,7 +107,9 @@ public class PlayerController : MonoBehaviour
             if (GameManager.Instance.GetMeterAmount() < MetersNeeded)
             {
                 //display "Not enough meter"
-                StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabel, 0.2f));
+                StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabel));
+                
+                //display meters needed
                 StartCoroutine(GameManager.Instance.DisplayWarningMeters(MetersNeeded));
                 return;
             }

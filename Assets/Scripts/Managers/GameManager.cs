@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         return Counter;
     }
 
-    public IEnumerator DisplayWarning(TextMeshProUGUI TextShown, float TimeLength = 0.5f)
+    public IEnumerator DisplayWarning(TextMeshProUGUI TextShown, float TimeLength = 0.2f)
     {
         //almost flashes 
         TextShown.gameObject.SetActive(true);
