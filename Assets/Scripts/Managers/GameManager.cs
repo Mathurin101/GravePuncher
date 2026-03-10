@@ -14,8 +14,10 @@ public class GameManager : MonoBehaviour
     
     //TODO:Make a class that holds the attack moves fireball, uppercut... etc
 
+    //UI
     [SerializeField] TextMeshProUGUI Score;
     int HighestScore;
+    [SerializeField] TextMeshProUGUI Rounds;
 
     //pause menu
     //shows highest score
@@ -25,6 +27,11 @@ public class GameManager : MonoBehaviour
     //Shop menu (UI)
 
     //Inventory menu
+
+    //Enemies
+    [Header("Enemies")]
+    [SerializeField] public GameObject Zombie;
+    [SerializeField] public GameObject Grave;
 
     [Header("Warning Texts")]
     [SerializeField] public TextMeshProUGUI NoMeterLabel;
@@ -80,7 +87,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
 
     public void AddScore(int AddedNumber)
     {

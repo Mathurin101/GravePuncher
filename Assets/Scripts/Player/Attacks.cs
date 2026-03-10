@@ -49,12 +49,9 @@ public class Attacks : MonoBehaviour
     void MovingAttack()
     {
         //move forward(z) on the z aixs
-        gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.forward * 10;        
+        gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.forward * 10;
 
-        Debug.Log("Spawn Location: " + gameObject.transform.position.x + "," 
-                                     + gameObject.transform.position.y + "," 
-                                     + gameObject.transform.position.z);
-        
+        //Destroy after a set amount of time
         if (this) { Destroy(gameObject, 1.1f); }    
     }
 }
