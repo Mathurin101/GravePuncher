@@ -11,8 +11,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image[] BarMeter;
     [SerializeField] Image[] NotBarMeter;
     int Counter;
-    
-    //TODO:Make a class that holds the attack moves fireball, uppercut... etc
 
     //UI
     [SerializeField] TextMeshProUGUI Score;
@@ -37,7 +35,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI NoMeterLabel;
 
 
-    //[Header("MISC")]
+    //[Header("MISC")]     
+    
 
 
 
@@ -46,6 +45,7 @@ public class GameManager : MonoBehaviour
     {
         //needed to initiate this class
         if (!Instance) { Instance = this; }
+
 
 
         Counter = BarMeter.Length;

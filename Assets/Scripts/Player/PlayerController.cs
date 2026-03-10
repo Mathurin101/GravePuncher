@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Stats")]
     [SerializeField] int Speed = 1;
-    [SerializeField] int Hearts = 3;
-    [SerializeField] int TotalJumps = 1;
+    //[SerializeField] int Hearts = 3;
+    //[SerializeField] int TotalJumps = 1;
     [SerializeField] int JumpMax = 1;
     [SerializeField] int JumpSpeed = 2;
 

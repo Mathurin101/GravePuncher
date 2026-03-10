@@ -8,6 +8,13 @@ public class AttackMoves : MonoBehaviour
     [SerializeField] public GameObject PunchBox;
     [SerializeField] GameObject FireBall;
 
+    //uppercut
+
+    //Dragon Fist
+
+    //Air Fist
+
+
     private void Awake()
     {
         //needed to initiate this class
