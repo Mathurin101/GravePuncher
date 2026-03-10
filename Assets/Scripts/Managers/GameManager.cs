@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     [Header("Player UI/items")]
     [SerializeField] Image[] BarMeter;
     [SerializeField] Image[] NotBarMeter;
-    public int Counter;
+    int Counter;
+    
+    //TODO:Make a class that holds the attack moves fireball, uppercut... etc
 
     [SerializeField] TextMeshProUGUI Score;
     int HighestScore;
@@ -54,18 +56,24 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown("1"))
+        {
+            AddMeter();
+        }
 
     }
 
     public void AddMeter(bool AddOne = true)
     {
-        if (AddOne)//sets the current meter true
+        if (AddOne)//sets the current meter true -- add one
         {
+            //can't go over the amount of meter
+            if (Counter == BarMeter.Length) { Debug.Log("can't go over! "); return; }       
+            
             Counter++;
             BarMeter[Counter - 1].gameObject.SetActive(true);
         }
-        else //sets the current meter false
+        else //sets the current meter false -- minus one
         {
             BarMeter[Counter - 1].gameObject.SetActive(false);
             Counter--;

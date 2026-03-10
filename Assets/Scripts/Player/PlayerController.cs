@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Android;
+
 
 public class PlayerController : MonoBehaviour
 {
+
     [SerializeField] CharacterController controller;
 
     [Header("Player Stats")]
@@ -16,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("MISC")]
     [SerializeField] float Gravity = 9.8f;
-    [SerializeField] GameObject PunchBox;
+
 
 
     //Original Stats
@@ -82,47 +83,13 @@ public class PlayerController : MonoBehaviour
 
     void Punch()
     {
-        if (Input.GetButtonDown("Fire1") || Input.GetKey("f"))
-        {
-            StartCoroutine(AttackHitBox());
-        }
-
-        //bug test
-       /* if (Input.GetKey("g") && PunchBox.activeSelf == false)
-        {
-            PunchBox.SetActive(true);
-        }
-        else if (Input.GetKey("h") && PunchBox.activeSelf == true)
-        {
-            PunchBox.SetActive(false);
-        }*/
+        AttackMoves.Instance.Punch();
     }
 
     //FireBallPunch
-    void FireBallPunch(int Meters = 2)
+    void FireBallPunch()
     {
-        int MetersNeeded = Meters;
-        if (Input.GetKeyDown("e"))
-        {
-            if (GameManager.Instance.GetMeterAmount() < MetersNeeded)
-            {
-                //display "Not enough meter"
-                StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabel));
-                
-                //display meters needed
-                StartCoroutine(GameManager.Instance.DisplayWarningMeters(MetersNeeded));
-                return;
-            }
-            else
-            {
-                Debug.Log("Fire Ball");
-                for (int i = 0; i < MetersNeeded; i++)
-                {
-                    GameManager.Instance.AddMeter(false);
-                }
-            }
-        }
-        
+        AttackMoves.Instance.FireBallPunch();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -135,10 +102,5 @@ public class PlayerController : MonoBehaviour
         //Add logic for when the player exits the trigger
     }
 
-    IEnumerator AttackHitBox()
-    {
-        PunchBox.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        PunchBox.SetActive(false);
-    }
+   
 }

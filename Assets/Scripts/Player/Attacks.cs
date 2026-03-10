@@ -18,7 +18,10 @@ public class Attacks : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (AttackType == TypeAttack.FireBall)
+        {
+            MovingAttack();
+        }
     }
 
     private void OnTriggerEnter(Collider Other)
@@ -39,10 +42,20 @@ public class Attacks : MonoBehaviour
 
             if (Enemy == null) { return; }
             Enemy.TakeDamage(2);
-
             Destroy(gameObject);
-
         }
+    }
+
+    void MovingAttack()
+    {
+
+        gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.forward * 10;        
+
+        Debug.Log("Spawn Location: " + gameObject.transform.position.x + "," 
+                                     + gameObject.transform.position.y + "," 
+                                     + gameObject.transform.position.z);
+        
+        if (this) { Destroy(gameObject, 3); }    
     }
 }
 
