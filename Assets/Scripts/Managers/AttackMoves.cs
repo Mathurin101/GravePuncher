@@ -26,17 +26,7 @@ public class AttackMoves : MonoBehaviour
         if (Input.GetButtonDown("Fire1") || Input.GetKey("f"))
         {
             StartCoroutine(AttackHitBox());
-        }
-
-        //bug test
-        /* if (Input.GetKey("g") && PunchBox.activeSelf == false)
-         {
-             PunchBox.SetActive(true);
-         }
-         else if (Input.GetKey("h") && PunchBox.activeSelf == true)
-         {
-             PunchBox.SetActive(false);
-         }*/
+        }     
     }
 
     public void FireBallPunch(int Meters = 2)
@@ -60,7 +50,7 @@ public class AttackMoves : MonoBehaviour
 
                 for (int i = 0; i < MetersNeeded; i++)
                 {
-                    GameManager.Instance.AddMeter(false);
+                    GameManager.Instance.AddMeterP1(false);
                 }
             }
         }

@@ -34,8 +34,8 @@ public class EnemyScript : MonoBehaviour, IDamage
 
         if (Health <= 0 && Type == EnemyType.Grave)
         {
-            GameManager.Instance.AddMeter();
-            GameManager.Instance.AddScore(100);
+            GameManager.Instance.AddMeterP1();
+            GameManager.Instance.AddScoreP1(100);
             if (RandomNUM <= 50)//50% to spawn zombie
             {
                 Instantiate(GameManager.Instance.Zombie, transform.position, transform.rotation);
@@ -45,8 +45,8 @@ public class EnemyScript : MonoBehaviour, IDamage
 
         if (Health <= 0 && Type == EnemyType.Zombie)
         {
-            GameManager.Instance.AddMeter();
-            GameManager.Instance.AddScore(500);
+            GameManager.Instance.AddMeterP1();
+            GameManager.Instance.AddScoreP1(500);
             Destroy(gameObject);
         }
     }

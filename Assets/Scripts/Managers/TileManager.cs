@@ -20,17 +20,18 @@ public class TileManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     { 
-        StartCoroutine(SpawnItemOnRow1(Item));
-        StartCoroutine(SpawnItemOnRow2(Item));
-        StartCoroutine(SpawnItemOnRow3(Item));
-        StartCoroutine(SpawnItemOnRow4(Item));
-        StartCoroutine(SpawnItemOnRow5(Item));
-        StartCoroutine(SpawnItemOnRow6(Item));
+        //StartCoroutine(SpawnItemOnRow1(Item));
+        //StartCoroutine(SpawnItemOnRow2(Item));
+        //StartCoroutine(SpawnItemOnRow3(Item));
+        //StartCoroutine(SpawnItemOnRow4(Item));
+        //StartCoroutine(SpawnItemOnRow5(Item));
+        //StartCoroutine(SpawnItemOnRow6(Item));
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
     IEnumerator SpawnItemOnRow1(GameObject item)
