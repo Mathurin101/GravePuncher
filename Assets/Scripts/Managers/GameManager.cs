@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     [Header("MISC")]
     [SerializeField] TextMeshProUGUI PressStart;
+    bool isPressed;
     [SerializeField] TextMeshProUGUI Rounds;
 
 
@@ -68,10 +69,8 @@ public class GameManager : MonoBehaviour
 
         PressStart.gameObject.SetActive(false);
 
-        do
-        {
-            StartCoroutine(DisplayWarning(PressStart, 0.7f));//
-        } while (!Input.GetKeyDown("k"));
+        isPressed = true;
+        StartCoroutine(FlashesForever(PressStart));
     }
 
     // Update is called once per frame
@@ -82,7 +81,11 @@ public class GameManager : MonoBehaviour
             AddMeterP1();
         }
 
-
+        //will remove text if true
+        if (Input.GetKey("k"))
+        {
+            isPressed = false;
+        }
 
     }
 
@@ -228,6 +231,19 @@ public class GameManager : MonoBehaviour
         return CounterP2;
     }
 
+    IEnumerator FlashesForever(TextMeshProUGUI TextShown, float WaitTime = 0.7f)
+    {
+        do
+        {
+            TextShown.gameObject.SetActive(true);
+            yield return new WaitForSeconds(WaitTime);
+            TextShown.gameObject.SetActive(false);
+            yield return new WaitForSeconds(WaitTime);
 
+        } while (isPressed);
+        TextShown.gameObject.SetActive(false);
+
+        //TODO: display player two UI
+    }
 
 }
