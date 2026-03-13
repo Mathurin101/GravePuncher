@@ -131,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7763348970078717978}
+  - component: {fileID: 7035746323709245106}
   - component: {fileID: 1107293980987447597}
   - component: {fileID: 4772046237945043328}
   - component: {fileID: 4645892351102540137}
@@ -161,6 +162,31 @@ Transform:
   - {fileID: 8166965742208698420}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7035746323709245106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801813792470422873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5271ae6b9dc3ea04aa79b6c8c2e56789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  GamePlayeOB: {fileID: 0}
+  controller: {fileID: 0}
+  Speed: 1
+  JumpMax: 1
+  JumpSpeed: 2
+  Gravity: 9.8
+  PlayerOGHearts: 0
+  PlayerOGSpeed: 0
+  OGGravity: 0
+  JumpCount: 0
+  MoveDirection: {x: 0, y: 0, z: 0}
+  JumpVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1107293980987447597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,11 +199,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e375bea2c076904c915163fef73fb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Type: 0
+  GamePlayeOB: {fileID: 0}
   controller: {fileID: 8598896734323545111}
   Speed: 10
   JumpMax: 1
   JumpSpeed: 6
   Gravity: 9.8
+  PlayerOGHearts: 0
+  PlayerOGSpeed: 0
+  OGGravity: 0
+  JumpCount: 0
+  MoveDirection: {x: 0, y: 0, z: 0}
+  JumpVelocity: {x: 0, y: 0, z: 0}
+  player: {fileID: 0}
 --- !u!33 &4772046237945043328
 MeshFilter:
   m_ObjectHideFlags: 0

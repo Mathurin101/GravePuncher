@@ -8,17 +8,19 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [Header("Player1 UI/items")]
+    [SerializeField] public GameObject Player;
     [SerializeField] Image[] BarMeterP1;
-    [SerializeField] Image[] NotBarMeterP1;
+    [SerializeField] public Image[] NotBarMeterP1;
     int CounterP1;
 
     [SerializeField] TextMeshProUGUI ScoreP1;
     int HighestScoreP1;
 
     [Header("Player2 UI/items")]
-    [SerializeField] GameObject Player2;
+    [SerializeField] public GameObject Player2;
+    [SerializeField] GameObject P2Character;
     [SerializeField] Image[] BarMeterP2;
-    [SerializeField] Image[] NotBarMeterP2;
+    [SerializeField] public Image[] NotBarMeterP2;
     int CounterP2;
 
     [SerializeField] TextMeshProUGUI ScoreP2;
@@ -42,14 +44,14 @@ public class GameManager : MonoBehaviour
 
     [Header("Warning Texts")]
     [SerializeField] public TextMeshProUGUI NoMeterLabel;
+    [SerializeField] public TextMeshProUGUI NoMeterLabelP2;
 
 
     [Header("MISC")]
     [SerializeField] TextMeshProUGUI PressStart;
     bool isPressed;
+
     [SerializeField] TextMeshProUGUI Rounds;
-
-
 
     // Awake is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -58,15 +60,18 @@ public class GameManager : MonoBehaviour
         if (!Instance) { Instance = this; }
 
         CounterP1 = BarMeterP1.Length;
+        CounterP2 = BarMeterP2.Length;
 
         ScoreP1.text = "00000";
         //turn off all the meters
         for (int i = 0; i < BarMeterP1.Length; i++)
         {
-            AddMeterP1(false);
+            AddMeter(BarMeterP2, CounterP2, false);
+            AddMeter(BarMeterP1, CounterP1, false);
         }
 
         NoMeterLabel.gameObject.SetActive(false);
+        NoMeterLabelP2.gameObject.SetActive(false);
 
         PressStart.gameObject.SetActive(false);
 
@@ -79,7 +84,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown("1"))
         {
-            AddMeterP1();
+            AddMeter(BarMeterP2, CounterP2);
         }
 
         //will remove text if true
@@ -91,55 +96,83 @@ public class GameManager : MonoBehaviour
     }
 
     //Player1
-    public void AddMeterP1(bool AddOne = true)
+    public void AddMeter(Image[] Meter, int Counter, bool AddOne = true)
     {
         if (AddOne)//sets the current meter true -- add one
         {
             //can't go over the amount of meter
-            if (CounterP1 == BarMeterP1.Length) { Debug.Log("can't go over! "); return; }
+            if (Counter == Meter.Length) { Debug.Log("can't go over! "); return; }
 
-            CounterP1++;
-            BarMeterP1[CounterP1 - 1].gameObject.SetActive(true);
+            Counter++;
+            Meter[Counter - 1].gameObject.SetActive(true);
         }
         else //sets the current meter false -- minus one
         {
-            BarMeterP1[CounterP1 - 1].gameObject.SetActive(false);
-            CounterP1--;
+            Meter[Counter - 1].gameObject.SetActive(false);
+            Counter--;
         }
 
     }
 
-    public void AddScoreP1(int AddedNumber)
+    public void AddScore(int AddedNumber, TextMeshProUGUI Score)
     {
-        if ((int.Parse(ScoreP1.text) + AddedNumber) > 1000)
+        if ((int.Parse(Score.text) + AddedNumber) > 1000)
         {
-            ScoreP1.text = "0" + (int.Parse(ScoreP1.text) + AddedNumber).ToString();
-            SetHighestScoreP1();
+            ScoreP1.text = "0" + (int.Parse(Score.text) + AddedNumber).ToString();
+            SetHighestScore();
 
         }
-        else if ((int.Parse(ScoreP1.text) + AddedNumber) > 10000)
+        else if ((int.Parse(Score.text) + AddedNumber) > 10000)
         {
-            ScoreP1.text = (int.Parse(ScoreP1.text) + AddedNumber).ToString();
-            SetHighestScoreP1();
+            Score.text = (int.Parse(Score.text) + AddedNumber).ToString();
+            SetHighestScore();
         }
         else
         {
-            ScoreP1.text = "00" + (int.Parse(ScoreP1.text) + AddedNumber).ToString();
-            SetHighestScoreP1();
+            Score.text = "00" + (int.Parse(Score.text) + AddedNumber).ToString();
+            SetHighestScore();
         }
     }
 
-    void SetHighestScoreP1()
+    void SetHighestScore()
     {
+        //player one
         if (HighestScoreP1 < int.Parse(ScoreP1.text))
         {
             HighestScoreP1 = int.Parse(ScoreP1.text);
+        }
+
+        //player two
+        if (HighestScoreP2 < int.Parse(ScoreP2.text))
+        {
+            HighestScoreP2 = int.Parse(ScoreP2.text);
         }
     }
 
     public int GetMeterAmount()
     {
         return CounterP1;
+    }
+    public Image[] GetMeter()
+    {
+        return BarMeterP1;
+    }
+    public TextMeshProUGUI GetScore()
+    {
+        return ScoreP1;
+    }
+
+    public int GetMeterAmountP2()
+    {
+        return CounterP2;
+    }
+    public Image[] GetMeterP2()
+    {
+        return BarMeterP2;
+    }
+    public TextMeshProUGUI GetScoreP2()
+    {
+        return ScoreP2;
     }
 
     public IEnumerator DisplayWarning(TextMeshProUGUI TextShown, float TimeLength = 0.2f)
@@ -154,83 +187,32 @@ public class GameManager : MonoBehaviour
         TextShown.gameObject.SetActive(false);
     }
 
-    public IEnumerator DisplayWarningMeters(int MetersNeeded, float TimeLength = 0.2f)
+    public IEnumerator DisplayWarningMeters(int MetersNeeded, Image[] Player, float TimeLength = 0.2f)
     {
         //almost flashes 
         for (int i = 0; i < MetersNeeded; i++)
         {
-            NotBarMeterP1[i].gameObject.SetActive(true);
+            Player[i].gameObject.SetActive(true);
         } //turns on
         yield return new WaitForSeconds(TimeLength);
         for (int i = 0; i < MetersNeeded; i++)
         {
-            NotBarMeterP1[i].gameObject.SetActive(false);
+            Player[i].gameObject.SetActive(false);
         } //turns off
 
         yield return new WaitForSeconds(TimeLength);
         for (int i = 0; i < MetersNeeded; i++)
         {
-            NotBarMeterP1[i].gameObject.SetActive(true);
+            Player[i].gameObject.SetActive(true);
         } //turns on
 
         yield return new WaitForSeconds(TimeLength);
         for (int i = 0; i < MetersNeeded; i++)
         {
-            NotBarMeterP1[i].gameObject.SetActive(false);
+            Player[i].gameObject.SetActive(false);
         } //turns off
     }
 
-
-    //Player2
-    public void AddMeterP2(bool AddOne = true)
-    {
-        if (AddOne)//sets the current meter true -- add one
-        {
-            //can't go over the amount of meter
-            if (CounterP2 == BarMeterP2.Length) { Debug.Log("can't go over! "); return; }
-
-            CounterP2++;
-            BarMeterP2[CounterP2 - 1].gameObject.SetActive(true);
-        }
-        else //sets the current meter false -- minus one
-        {
-            BarMeterP2[CounterP2 - 1].gameObject.SetActive(false);
-            CounterP2--;
-        }
-    }
-
-    public void AddScoreP2(int AddedNumber)
-    {
-        if ((int.Parse(ScoreP2.text) + AddedNumber) > 1000)
-        {
-            ScoreP2.text = "0" + (int.Parse(ScoreP2.text) + AddedNumber).ToString();
-            SetHighestScoreP2();
-
-        }
-        else if ((int.Parse(ScoreP2.text) + AddedNumber) > 10000)
-        {
-            ScoreP2.text = (int.Parse(ScoreP2.text) + AddedNumber).ToString();
-            SetHighestScoreP2();
-        }
-        else
-        {
-            ScoreP2.text = "00" + (int.Parse(ScoreP2.text) + AddedNumber).ToString();
-            SetHighestScoreP2();
-        }
-    }
-
-    void SetHighestScoreP2()
-    {
-        if (HighestScoreP2 < int.Parse(ScoreP2.text))
-        {
-            HighestScoreP2 = int.Parse(ScoreP2.text);
-        }
-    }
-
-    public int GetMeterAmountP2()
-    {
-        return CounterP2;
-    }
 
     IEnumerator FlashesForever(TextMeshProUGUI TextShown, float WaitTime = 0.7f)
     {
@@ -246,6 +228,8 @@ public class GameManager : MonoBehaviour
 
         //TODO: display player two UI
         Player2.SetActive(true);
+        P2Character.SetActive(true);
+
     }
 
 }

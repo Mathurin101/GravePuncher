@@ -28,7 +28,6 @@ public class Attacks : MonoBehaviour
     {
         if (AttackType == TypeAttack.punch)
         {
-            Debug.Log("Punched: " + Other.name);
             IDamage Enemy = Other.GetComponent<IDamage>();
 
             if (Enemy == null) { return; }
@@ -52,7 +51,7 @@ public class Attacks : MonoBehaviour
         gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.forward * 10;
 
         //Destroy after a set amount of time
-        if (this) { Destroy(gameObject, 1.1f); }    
+        if (this) { Destroy(gameObject, 1.1f); }
     }
 }
 
