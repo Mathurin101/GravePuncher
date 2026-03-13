@@ -60,9 +60,9 @@ public class AttackMoves : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(".") && isPlayer2)
+        if (Input.GetKeyDown("."))//&& isPlayer2
         {
-            if (GameManager.Instance.GetMeterAmount() < MetersNeeded)
+            if (GameManager.Instance.GetMeterAmountP2() < MetersNeeded)
             {
                 //display "Not enough meter"
                 StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabelP2));
@@ -76,7 +76,7 @@ public class AttackMoves : MonoBehaviour
                 Instantiate(FireBall, player2.PunchBox.transform.position, player2.PunchBox.transform.rotation);
                 for (int i = 0; i < MetersNeeded; i++)
                 {
-                    GameManager.Instance.AddMeter(GameManager.Instance.GetMeterP2(), ref GameManager.Instance.CounterP1, false);
+                    GameManager.Instance.AddMeter(GameManager.Instance.GetMeterP2(), ref GameManager.Instance.CounterP2, false);
                 }
             }
         }
@@ -92,7 +92,6 @@ public class AttackMoves : MonoBehaviour
         }
         else if (Input.GetKeyDown(","))
         {
-            Debug.Log("Just punched");
             player2.PunchBox.SetActive(true);
             yield return new WaitForSeconds(0.5f);
             player2.PunchBox.SetActive(false);

@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField] public int JumpSpeed = 2;
 
     [Header("MISC")]
-    [SerializeField] public float Gravity = 9.8f;
+    [SerializeField] public float Gravity = 9.8f;//TODO: make both players jump higher
 
     //Original Stats
     [NonSerialized] public int PlayerOGHearts;
@@ -50,9 +50,9 @@ public class Player : MonoBehaviour
 
     }
 
-    public Player()
-    {
 
-    }
+
+
+
 
 }
