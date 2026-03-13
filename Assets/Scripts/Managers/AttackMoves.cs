@@ -6,6 +6,7 @@ public class AttackMoves : MonoBehaviour
     public static AttackMoves Instance;
 
     [SerializeField] Player player;
+    [SerializeField] Player player2;
     [SerializeField] GameObject FireBall;
 
     //uppercut
@@ -20,25 +21,18 @@ public class AttackMoves : MonoBehaviour
     private void Awake()
     {
         //needed to initiate this class
-        if (!Instance) { Instance = this; }
+        if (!Instance)
+        {
+            Instance = this;
 
-        Debug.Log("Player type is: " + player.Type);
-
-        isPlayer1 = Player.PlayerType.Player1 == player.Type;
-        isPlayer2 = Player.PlayerType.Player2 == player.Type;
+            isPlayer1 = Player.PlayerType.Player1 == player.Type;
+            isPlayer2 = Player.PlayerType.Player2 == player.Type;
+        }
     }
 
     public void Punch()
     {
-
-        if (Input.GetKeyDown("f") && isPlayer1)
-        {
-            StartCoroutine(AttackHitBox());
-        }
-        else if (Input.GetKeyDown(",") && isPlayer2)
-        {
-            StartCoroutine(AttackHitBox());
-        }
+        StartCoroutine(AttackHitBox());
     }
 
     public void FireBallPunch(int Meters = 2)
@@ -46,7 +40,6 @@ public class AttackMoves : MonoBehaviour
         int MetersNeeded = Meters;
         if (Input.GetKeyDown("e") && isPlayer1)
         {
-            Debug.Log("The fire Ball statement is: " + (Input.GetKeyDown("e") && Player.PlayerType.Player1 == player.Type));
             if (GameManager.Instance.GetMeterAmount() < MetersNeeded)
             {
                 //display "Not enough meter"
@@ -58,7 +51,6 @@ public class AttackMoves : MonoBehaviour
             }
             else
             {
-                Debug.Log("Fire Ball");
                 Instantiate(FireBall, player.PunchBox.transform.position, player.PunchBox.transform.rotation);
 
                 for (int i = 0; i < MetersNeeded; i++)
@@ -67,7 +59,8 @@ public class AttackMoves : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyDown(".") && isPlayer2)
+
+        if (Input.GetKeyDown(".") && isPlayer2)
         {
             if (GameManager.Instance.GetMeterAmount() < MetersNeeded)
             {
@@ -80,7 +73,7 @@ public class AttackMoves : MonoBehaviour
             else
             {
                 Debug.Log("Fire Ball");
-                Instantiate(FireBall, player.PunchBox.transform.position, player.PunchBox.transform.rotation);
+                Instantiate(FireBall, player2.PunchBox.transform.position, player2.PunchBox.transform.rotation);
                 for (int i = 0; i < MetersNeeded; i++)
                 {
                     GameManager.Instance.AddMeter(GameManager.Instance.GetMeterP2(), ref GameManager.Instance.CounterP1, false);
@@ -91,9 +84,19 @@ public class AttackMoves : MonoBehaviour
 
     IEnumerator AttackHitBox()
     {
-        player.PunchBox.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        player.PunchBox.SetActive(false);
+        if (Input.GetKeyDown("f"))
+        {
+            player.PunchBox.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            player.PunchBox.SetActive(false);
+        }
+        else if (Input.GetKeyDown(","))
+        {
+            Debug.Log("Just punched");
+            player2.PunchBox.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            player2.PunchBox.SetActive(false);
+        }
     }
 
 }

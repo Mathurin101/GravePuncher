@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < BarMeterP1.Length; i++)
         {
             AddMeter(BarMeterP1, ref CounterP1, false);
-            //AddMeter(BarMeterP2, CounterP2, false);
+            AddMeter(BarMeterP2, ref CounterP2, false);
         }
 
         NoMeterLabel.gameObject.SetActive(false);
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
             AddMeter(BarMeterP1, ref CounterP1);
         }
 
-        if (Input.GetKeyDown("2"))
+        if (Input.GetKeyDown("2") && P2Character.activeSelf)
         {
             AddMeter(BarMeterP2, ref CounterP2);
         }
@@ -106,7 +106,6 @@ public class GameManager : MonoBehaviour
     {
         if (AddOne)//sets the current meter true -- add one
         {
-            Debug.Log("Adding one meter Current: " + Counter);
             //can't go over the amount of meter
             if (Counter == Meter.Length) { Debug.Log("can't go over!"); return; }
 
@@ -115,7 +114,6 @@ public class GameManager : MonoBehaviour
         }
         else //sets the current meter false -- minus one
         {
-            Debug.Log("taking one meter Current: " + Counter);
             Meter[Counter - 1].gameObject.SetActive(false);
             Counter--;
         }
