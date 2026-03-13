@@ -32,18 +32,16 @@ public class EnemyScript : MonoBehaviour, IDamage
     {
         Health -= DamageTaken;
 
-        Debug.Log(GetComponent<Collider>().name + " Hit me");
-
         if (Health <= 0 && Type == EnemyType.Grave)
         {
             if (AttackMoves.isPlayer1)
             {
-                GameManager.Instance.AddMeter(GameManager.Instance.GetMeter(), GameManager.Instance.GetMeterAmount());
+                GameManager.Instance.AddMeter(GameManager.Instance.GetMeterP2(), ref GameManager.Instance.CounterP1);
                 GameManager.Instance.AddScore(100, GameManager.Instance.GetScore());
             }
             else if (AttackMoves.isPlayer2)
             {
-                GameManager.Instance.AddMeter(GameManager.Instance.GetMeter(), GameManager.Instance.GetMeterAmount());
+                GameManager.Instance.AddMeter(GameManager.Instance.GetMeterP2(), ref GameManager.Instance.CounterP2);
                 GameManager.Instance.AddScore(100, GameManager.Instance.GetScoreP2());
             }
 
@@ -59,12 +57,12 @@ public class EnemyScript : MonoBehaviour, IDamage
 
             if (AttackMoves.isPlayer1)
             {
-                GameManager.Instance.AddMeter(GameManager.Instance.GetMeter(), GameManager.Instance.GetMeterAmount());
+                GameManager.Instance.AddMeter(GameManager.Instance.GetMeter(), ref GameManager.Instance.CounterP1);
                 GameManager.Instance.AddScore(500, GameManager.Instance.GetScore());
             }
             else if (AttackMoves.isPlayer2)
             {
-                GameManager.Instance.AddMeter(GameManager.Instance.GetMeter(), GameManager.Instance.GetMeterAmount());
+                GameManager.Instance.AddMeter(GameManager.Instance.GetMeterP2(), ref GameManager.Instance.CounterP2);
                 GameManager.Instance.AddScore(500, GameManager.Instance.GetScoreP2());
             }
             Destroy(gameObject);

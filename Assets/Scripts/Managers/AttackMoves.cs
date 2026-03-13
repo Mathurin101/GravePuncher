@@ -63,7 +63,7 @@ public class AttackMoves : MonoBehaviour
 
                 for (int i = 0; i < MetersNeeded; i++)
                 {
-                    GameManager.Instance.AddMeter(GameManager.Instance.GetMeter(), GameManager.Instance.GetMeterAmount(), false);
+                    GameManager.Instance.AddMeter(GameManager.Instance.GetMeter(), ref GameManager.Instance.CounterP1, false);
                 }
             }
         }
@@ -83,7 +83,7 @@ public class AttackMoves : MonoBehaviour
                 Instantiate(FireBall, player.PunchBox.transform.position, player.PunchBox.transform.rotation);
                 for (int i = 0; i < MetersNeeded; i++)
                 {
-                    GameManager.Instance.AddMeter(GameManager.Instance.GetMeterP2(), GameManager.Instance.GetMeterAmountP2(), false);
+                    GameManager.Instance.AddMeter(GameManager.Instance.GetMeterP2(), ref GameManager.Instance.CounterP1, false);
                 }
             }
         }

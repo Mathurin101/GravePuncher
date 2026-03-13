@@ -9,19 +9,19 @@ public class GameManager : MonoBehaviour
 
     [Header("Player1 UI/items")]
     [SerializeField] public GameObject Player;
-    [SerializeField] Image[] BarMeterP1;
+    [SerializeField] public Image[] BarMeterP1;
     [SerializeField] public Image[] NotBarMeterP1;
-    int CounterP1;
+    public int CounterP1;
 
     [SerializeField] TextMeshProUGUI ScoreP1;
     int HighestScoreP1;
 
     [Header("Player2 UI/items")]
     [SerializeField] public GameObject Player2;
-    [SerializeField] GameObject P2Character;
-    [SerializeField] Image[] BarMeterP2;
+    [SerializeField] public GameObject P2Character;
+    [SerializeField] public Image[] BarMeterP2;
     [SerializeField] public Image[] NotBarMeterP2;
-    int CounterP2;
+    public int CounterP2;
 
     [SerializeField] TextMeshProUGUI ScoreP2;
     int HighestScoreP2;
@@ -63,11 +63,13 @@ public class GameManager : MonoBehaviour
         CounterP2 = BarMeterP2.Length;
 
         ScoreP1.text = "00000";
+        ScoreP2.text = "00000";
+
         //turn off all the meters
         for (int i = 0; i < BarMeterP1.Length; i++)
         {
-            AddMeter(BarMeterP2, CounterP2, false);
-            AddMeter(BarMeterP1, CounterP1, false);
+            AddMeter(BarMeterP1, ref CounterP1, false);
+            //AddMeter(BarMeterP2, CounterP2, false);
         }
 
         NoMeterLabel.gameObject.SetActive(false);
@@ -84,7 +86,12 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown("1"))
         {
-            AddMeter(BarMeterP2, CounterP2);
+            AddMeter(BarMeterP1, ref CounterP1);
+        }
+
+        if (Input.GetKeyDown("2"))
+        {
+            AddMeter(BarMeterP2, ref CounterP2);
         }
 
         //will remove text if true
@@ -95,19 +102,20 @@ public class GameManager : MonoBehaviour
 
     }
 
-    //Player1
-    public void AddMeter(Image[] Meter, int Counter, bool AddOne = true)
+    public void AddMeter(Image[] Meter, ref int Counter, bool AddOne = true)
     {
         if (AddOne)//sets the current meter true -- add one
         {
+            Debug.Log("Adding one meter Current: " + Counter);
             //can't go over the amount of meter
-            if (Counter == Meter.Length) { Debug.Log("can't go over! "); return; }
+            if (Counter == Meter.Length) { Debug.Log("can't go over!"); return; }
 
             Counter++;
             Meter[Counter - 1].gameObject.SetActive(true);
         }
         else //sets the current meter false -- minus one
         {
+            Debug.Log("taking one meter Current: " + Counter);
             Meter[Counter - 1].gameObject.SetActive(false);
             Counter--;
         }
@@ -212,7 +220,6 @@ public class GameManager : MonoBehaviour
             Player[i].gameObject.SetActive(false);
         } //turns off
     }
-
 
     IEnumerator FlashesForever(TextMeshProUGUI TextShown, float WaitTime = 0.7f)
     {

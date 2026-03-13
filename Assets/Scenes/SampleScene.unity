@@ -6209,7 +6209,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190dc915dc67c2044a6c585c7f75d6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BarMeterP1: []
+  Player: {fileID: 605934576}
+  BarMeterP1:
+  - {fileID: 1266158613}
+  - {fileID: 2053907626}
+  - {fileID: 1370561563}
   NotBarMeterP1: []
   ScoreP1: {fileID: 1218373095}
   Player2: {fileID: 780088900547111299}
@@ -8075,6 +8079,10 @@ PrefabInstance:
     - target: {fileID: 1098164110145980856, guid: 0a55940a2aca20f429e80e349f1d77ff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949787067438665107, guid: 0a55940a2aca20f429e80e349f1d77ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7119372464998195777, guid: 0a55940a2aca20f429e80e349f1d77ff, type: 3}
       propertyPath: m_Name
