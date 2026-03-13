@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     int HighestScoreP1;
 
     [Header("Player2 UI/items")]
+    [SerializeField] GameObject Player2;
     [SerializeField] Image[] BarMeterP2;
     [SerializeField] Image[] NotBarMeterP2;
     int CounterP2;
@@ -244,6 +245,7 @@ public class GameManager : MonoBehaviour
         TextShown.gameObject.SetActive(false);
 
         //TODO: display player two UI
+        Player2.SetActive(true);
     }
 
 }
