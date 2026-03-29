@@ -1,7 +1,16 @@
 using UnityEngine;
 
-public class SaveStates 
+public class SaveStates : MonoBehaviour
 {
+    public static SaveStates SaveThis;
+
+    void Awake()
+    {
+        //needed to initiate this class
+        if (!SaveThis) { SaveThis = this; }
+    }
+
+
     protected int GravesPunched;
 
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,8 +28,14 @@ public class GameManager : MonoBehaviour
     int HighestScoreP2;
 
 
+    [Header("Menus")]
+    [SerializeField] GameObject MenuActive;
+    [SerializeField] GameObject MenuPause;
+    [SerializeField] GameObject MenuShop;
+    [SerializeField] GameObject MenuLose;
+    [SerializeField] GameObject MenuWin;
 
-    //pause menu
+
     //shows highest score
 
     //Option menu
@@ -53,11 +60,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI Rounds;
 
+    float OGTimeScale = 1f;
+    bool isPaused = false;
+
     // Awake is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         //needed to initiate this class
         if (!Instance) { Instance = this; }
+
+        //Used to stop time later
+        OGTimeScale = Time.deltaTime;
 
         CounterP1 = BarMeterP1.Length;
         CounterP2 = BarMeterP2.Length;
@@ -100,6 +113,44 @@ public class GameManager : MonoBehaviour
             isPressed = false;
         }
 
+
+    }
+
+    public void PauseGame()
+    {
+        isPaused = true;
+        Time.timeScale = 0;//freezes time
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void UnpauseGame()
+    {
+        isPaused = false;
+        Time.timeScale = OGTimeScale;//Unfreezes time
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        //turn off the active menu and set it to null 
+        MenuActive.SetActive(false);
+        MenuActive = null;
+    }
+
+    public void PauseMenu()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (MenuActive == null)
+            {
+                PauseGame();
+                MenuActive = MenuPause;
+                MenuActive.SetActive(true);
+            }
+            else if (MenuActive == MenuPause)
+            {
+                UnpauseGame();
+            }
+        }
     }
 
     public void AddMeter(Image[] Meter, ref int Counter, bool AddOne = true)
