@@ -97,21 +97,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("1"))
-        {
-            AddMeter(BarMeterP1, ref CounterP1);
-        }
-
-        if (Input.GetKeyDown("2") && P2Character.activeSelf)
-        {
-            AddMeter(BarMeterP2, ref CounterP2);
-        }
-
-        //will remove text if true
-        if (Input.GetKey("k"))
-        {
-            isPressed = false;
-        }
+        // if (Input.GetKeyDown("1"))
+        // {
+        //     AddMeter(BarMeterP1, ref CounterP1);
+        // }
+        //
+        // if (Input.GetKeyDown("2") && P2Character.activeSelf)
+        // {
+        //     AddMeter(BarMeterP2, ref CounterP2);
+        // }
+        //
+        // //will remove text if true
+        // if (Input.GetKey("k"))
+        // {
+        //     isPressed = false;
+        // }
 
 
     }

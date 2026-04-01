@@ -9,15 +9,24 @@ public class PlayerMovement : MonoBehaviour
     private InputAction MoveAction;
     private InputAction JumpAction;
 
-    [SerializeField] Rigidbody PlayerRigidbody;
-    [SerializeField] CharacterController PlayerController;
+    private Rigidbody PlayerRigidbody;
+    private CharacterController controller;
 
-    [SerializeField] float speed = 5;
+    [SerializeField] float Speed = 5;
+    [SerializeField] int JumpMax = 1;
     [SerializeField] float JumpSpeed = 5;
     [SerializeField] float JumpHeight = 5;
+    [SerializeField] float Gravity = 9.8f;
 
     Vector3 MoveDirection;
     Vector3 JumpVelocity;
+
+    Vector2 MoveAmount;
+
+
+
+    int JumpCount;
+    float OGGravity;
 
 
     private void OnEnable()
@@ -36,36 +45,52 @@ public class PlayerMovement : MonoBehaviour
         JumpAction = InputSystem.actions.FindAction("Jump");
 
         PlayerRigidbody = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
+        OGGravity = Gravity;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
+        MoveAmount = MoveAction.ReadValue<Vector2>();
         MovePlayer();
     }
 
     void Jump()
     {
-        if (JumpAction.WasPressedThisFrame())
+        if (JumpAction.WasPressedThisFrame() && JumpCount <= JumpMax)
         {
-            PlayerRigidbody.AddForceAtPosition(new Vector3(0, JumpHeight, 0), Vector3.up, ForceMode.Impulse);
+            JumpVelocity.y = JumpSpeed;
+            JumpCount++;
 
             //apply a jump animation soon here
+            // PlayerRigidbody.AddForce(Vector3.up * JumpHeight, ForceMode.Impulse);
         }
     }
 
-    private void MovePlayer()
+    void MovePlayer()
     {
-        if (MoveAction.WasPressedThisFrame())
+        if (MoveAction.IsPressed())
         {
-            //PlayerRigidbody.MovePosition(PlayerRigidbody.position + transform.right * speed * Time.deltaTime);
-            //PlayerController.Move()
+            if (controller.isGrounded)
+            {
+                JumpVelocity = Vector3.zero;
+                JumpCount = 0;
+                Gravity = OGGravity;
+            }
+            else
+            {
+                JumpVelocity.y -= Gravity * Time.deltaTime;
+            }
+
+            MoveDirection = MoveAmount.y * gameObject.transform.forward + MoveAmount.x * gameObject.transform.right;
+
+
+            controller.Move(MoveDirection * Speed * Time.deltaTime);
+
+            Jump();
+            controller.Move(JumpVelocity * Time.deltaTime);
+
         }
-
-
-
-
-
-        Jump();
     }
 
 }
