@@ -58,16 +58,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-
         if (JumpAction.WasPressedThisFrame() && JumpCount == 0)
         {
-            Debug.Log("Just jumped: JumpCount == 0");
-            JumpVelocity.y = JumpSpeed;
-            JumpCount++;
-        }
-        else if (JumpAction.WasPressedThisFrame() && JumpCount <= JumpMax)
-        {
-            Debug.Log("Just jumped: JumpCount <= JumpMax");
             JumpVelocity.y = JumpSpeed;
             JumpCount++;
         }
@@ -94,6 +86,20 @@ public class PlayerMovement : MonoBehaviour
         }
         Jump();
         controller.Move(JumpVelocity * Time.deltaTime);
+
+        Punch();
+        FireBallPunch();
     }
 
+    void Punch()
+    {
+        //add in a new input
+        AttackMoves.Instance.Punch();
+    }
+
+    void FireBallPunch()
+    {
+        AttackMoves.Instance.FireBallPunch();
+
+    }
 }
