@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -57,40 +58,42 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (JumpAction.WasPressedThisFrame() && JumpCount <= JumpMax)
+
+        if (JumpAction.WasPressedThisFrame() && JumpCount == 0)
         {
+            Debug.Log("Just jumped: JumpCount == 0");
             JumpVelocity.y = JumpSpeed;
             JumpCount++;
-
-            //apply a jump animation soon here
-            // PlayerRigidbody.AddForce(Vector3.up * JumpHeight, ForceMode.Impulse);
+        }
+        else if (JumpAction.WasPressedThisFrame() && JumpCount <= JumpMax)
+        {
+            Debug.Log("Just jumped: JumpCount <= JumpMax");
+            JumpVelocity.y = JumpSpeed;
+            JumpCount++;
         }
     }
 
     void MovePlayer()
     {
+        if (controller.isGrounded)
+        {
+            JumpVelocity = Vector3.zero;
+            JumpCount = 0;
+            Gravity = OGGravity;
+        }
+        else
+        {
+            JumpVelocity.y -= Gravity * Time.deltaTime;
+        }
+
         if (MoveAction.IsPressed())
         {
-            if (controller.isGrounded)
-            {
-                JumpVelocity = Vector3.zero;
-                JumpCount = 0;
-                Gravity = OGGravity;
-            }
-            else
-            {
-                JumpVelocity.y -= Gravity * Time.deltaTime;
-            }
-
             MoveDirection = MoveAmount.y * gameObject.transform.forward + MoveAmount.x * gameObject.transform.right;
 
-
             controller.Move(MoveDirection * Speed * Time.deltaTime);
-
-            Jump();
-            controller.Move(JumpVelocity * Time.deltaTime);
-
         }
+        Jump();
+        controller.Move(JumpVelocity * Time.deltaTime);
     }
 
 }
