@@ -118,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FireBallPunch(int MetersNeeded = 2)
     {
-        if (GameManager.Instance.GetMeterAmount() < MetersNeeded && FireBallAction.IsPressed())
+        if (GameManager.Instance.GetMeterAmount() < MetersNeeded && FireBallAction.WasPerformedThisFrame())
         {
             //display "Not enough meter"
             StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabel));
@@ -126,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(GameManager.Instance.DisplayWarningMeters(MetersNeeded, GameManager.Instance.NotBarMeterP1));
             return;
         }
-        else if (GameManager.Instance.GetMeterAmount() >= MetersNeeded && FireBallAction.IsPressed())
+        else if (GameManager.Instance.GetMeterAmount() >= MetersNeeded && FireBallAction.WasPerformedThisFrame())
         {
             Instantiate(FireBall, PunchBox.transform.position, PunchBox.transform.rotation);
             for (int i = 0; i < MetersNeeded; i++)

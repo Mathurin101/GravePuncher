@@ -302,6 +302,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15186114}
   m_CullTransparentMesh: 1
+--- !u!114 &16251856 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3329745379760851985, guid: 0a55940a2aca20f429e80e349f1d77ff, type: 3}
+  m_PrefabInstance: {fileID: 6288993354720240428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &47241925
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,6 +530,7 @@ MonoBehaviour:
   JumpHeight: 5
   Gravity: 9.8
   PunchBox: {fileID: 1313029165}
+  FireBall: {fileID: 704649241926227507, guid: 94f587c56463e774486b650b2947c824, type: 3}
 --- !u!1 &64654098
 GameObject:
   m_ObjectHideFlags: 0
@@ -5458,6 +5470,17 @@ MonoBehaviour:
   player: {fileID: 605934585}
   player2: {fileID: 8709097089814416479}
   FireBall: {fileID: 704649241926227507, guid: 94f587c56463e774486b650b2947c824, type: 3}
+--- !u!114 &1303401984 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 495229933651940080, guid: 0a55940a2aca20f429e80e349f1d77ff, type: 3}
+  m_PrefabInstance: {fileID: 6288993354720240428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1313029165
 GameObject:
   m_ObjectHideFlags: 0
@@ -5847,6 +5870,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1098164110145980856, guid: 0a55940a2aca20f429e80e349f1d77ff, type: 3}
   m_PrefabInstance: {fileID: 6288993354720240428}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1495527343 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11295713088189661, guid: 0a55940a2aca20f429e80e349f1d77ff, type: 3}
+  m_PrefabInstance: {fileID: 6288993354720240428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1613445542
 GameObject:
   m_ObjectHideFlags: 0
@@ -6887,7 +6921,10 @@ MonoBehaviour:
   - {fileID: 1266158613}
   - {fileID: 2053907626}
   - {fileID: 1370561563}
-  NotBarMeterP1: []
+  NotBarMeterP1:
+  - {fileID: 16251856}
+  - {fileID: 1303401984}
+  - {fileID: 1495527343}
   CounterP1: 0
   ScoreP1: {fileID: 1218373095}
   Player2: {fileID: 780088900547111299}
