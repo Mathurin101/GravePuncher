@@ -518,6 +518,7 @@ MonoBehaviour:
   JumpSpeed: 5
   JumpHeight: 5
   Gravity: 9.8
+  PunchBox: {fileID: 1313029165}
 --- !u!1 &64654098
 GameObject:
   m_ObjectHideFlags: 0

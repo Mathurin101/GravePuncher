@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
     void Punch()
     {
-        AttackMoves.Instance.Punch();
+        //AttackMoves.Instance.Punch();
     }
 
     //FireBallPunch

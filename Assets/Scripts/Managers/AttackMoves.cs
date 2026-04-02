@@ -30,7 +30,7 @@ public class AttackMoves : MonoBehaviour
         }
     }
 
-    public void Punch()
+    void Punch()
     {
         StartCoroutine(AttackHitBox());
     }
@@ -84,18 +84,9 @@ public class AttackMoves : MonoBehaviour
 
     IEnumerator AttackHitBox()
     {
-        if (Input.GetKeyDown("f"))
-        {
-            player.PunchBox.SetActive(true);
-            yield return new WaitForSeconds(0.5f);
-            player.PunchBox.SetActive(false);
-        }
-        else if (Input.GetKeyDown(","))
-        {
-            player2.PunchBox.SetActive(true);
-            yield return new WaitForSeconds(0.5f);
-            player2.PunchBox.SetActive(false);
-        }
+        player.PunchBox.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        player.PunchBox.SetActive(false);
     }
 
 }
