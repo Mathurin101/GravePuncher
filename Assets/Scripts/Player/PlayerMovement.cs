@@ -4,6 +4,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    enum Player
+    {
+        Player,
+        Player2
+    }
     //allows us to use all the actions in the "InputAction" assets
     [SerializeField] InputActionAsset InputActions;
 
@@ -13,15 +18,13 @@ public class PlayerMovement : MonoBehaviour
     private InputAction FireBallAction;
 
 
-
-
     private CharacterController controller;
 
     [Header("Player Stats")]
+    [SerializeField] Player Type;
     [SerializeField] float Speed = 5;
     [SerializeField] int JumpMax = 1;
     [SerializeField] float JumpSpeed = 5;
-    [SerializeField] float JumpHeight = 5;
     [SerializeField] float Gravity = 9.8f;
 
     [Header("Player Moves")]
@@ -41,11 +44,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        InputActions.FindActionMap("Player").Enable();
+        InputActions.FindActionMap(Type.ToString()).Enable();
     }
     private void OnDisable()
     {
-        InputActions.FindActionMap("Player").Disable();
+        InputActions.FindActionMap(Type.ToString()).Disable();
     }
 
 
@@ -68,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (JumpAction.WasPressedThisFrame() && JumpCount == 0)
+        if (JumpAction.WasPressedThisFrame() && JumpCount <= JumpMax)
         {
             JumpVelocity.y = JumpSpeed;
             JumpCount++;
