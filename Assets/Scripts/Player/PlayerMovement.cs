@@ -121,7 +121,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FireBallPunch(int MetersNeeded = 2)
     {
-        if (GameManager.Instance.GetMeterAmount() < MetersNeeded && FireBallAction.WasPerformedThisFrame())
+        //player1
+        if (GameManager.Instance.GetMeterAmount() < MetersNeeded && FireBallAction.WasPerformedThisFrame() && Type == Player.Player)
         {
             //display "Not enough meter"
             StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabel));
@@ -129,12 +130,30 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(GameManager.Instance.DisplayWarningMeters(MetersNeeded, GameManager.Instance.NotBarMeterP1));
             return;
         }
-        else if (GameManager.Instance.GetMeterAmount() >= MetersNeeded && FireBallAction.WasPerformedThisFrame())
+        else if (GameManager.Instance.GetMeterAmount() >= MetersNeeded && FireBallAction.WasPerformedThisFrame() && Type == Player.Player)
         {
             Instantiate(FireBall, PunchBox.transform.position, PunchBox.transform.rotation);
             for (int i = 0; i < MetersNeeded; i++)
             {
                 GameManager.Instance.AddMeter(GameManager.Instance.GetMeter(), ref GameManager.Instance.CounterP1, false);
+            }
+        }
+
+        //player2
+        if (GameManager.Instance.GetMeterAmountP2() < MetersNeeded && FireBallAction.WasPerformedThisFrame() && Type == Player.Player2)
+        {
+            //display "Not enough meter"
+            StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabelP2));
+            //display meters needed
+            StartCoroutine(GameManager.Instance.DisplayWarningMeters(MetersNeeded, GameManager.Instance.NotBarMeterP2));
+            return;
+        }
+        else if (GameManager.Instance.GetMeterAmountP2() >= MetersNeeded && FireBallAction.WasPerformedThisFrame() && Type == Player.Player2)
+        {
+            Instantiate(FireBall, PunchBox.transform.position, PunchBox.transform.rotation);
+            for (int i = 0; i < MetersNeeded; i++)
+            {
+                GameManager.Instance.AddMeter(GameManager.Instance.GetMeterP2(), ref GameManager.Instance.CounterP2, false);
             }
         }
     }

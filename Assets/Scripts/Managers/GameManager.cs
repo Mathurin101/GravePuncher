@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     [Header("MISC")]
     [SerializeField] TextMeshProUGUI PressStart;
-    bool isPressed;
+    bool isPressed = true;
 
     [SerializeField] TextMeshProUGUI Rounds;
 
@@ -90,30 +91,28 @@ public class GameManager : MonoBehaviour
 
         PressStart.gameObject.SetActive(false);
 
-        isPressed = true;
+
         StartCoroutine(FlashesForever(PressStart));
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if (Input.GetKeyDown("1"))
-        // {
-        //     AddMeter(BarMeterP1, ref CounterP1);
-        // }
-        //
-        // if (Input.GetKeyDown("2") && P2Character.activeSelf)
-        // {
-        //     AddMeter(BarMeterP2, ref CounterP2);
-        // }
-        //
-        // //will remove text if true
-        // if (Input.GetKey("k"))
-        // {
-        //     isPressed = false;
-        // }
+        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        {
+            AddMeter(BarMeterP1, ref CounterP1);
+        }
 
+        if (Keyboard.current.digit2Key.wasPressedThisFrame && P2Character.activeSelf)
+        {
+            AddMeter(BarMeterP2, ref CounterP2);
+        }
 
+        //will remove text if true
+        if (Keyboard.current.kKey.wasPressedThisFrame)//Input.GetKey("k")
+        {
+            isPressed = false;
+        }
     }
 
     public void PauseGame()
@@ -175,7 +174,7 @@ public class GameManager : MonoBehaviour
     {
         if ((int.Parse(Score.text) + AddedNumber) > 1000)
         {
-            ScoreP1.text = "0" + (int.Parse(Score.text) + AddedNumber).ToString();
+            Score.text = "0" + (int.Parse(Score.text) + AddedNumber).ToString();
             SetHighestScore();
 
         }
@@ -280,12 +279,11 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(WaitTime);
 
         } while (isPressed);
-        TextShown.gameObject.SetActive(false);
+        TextShown.gameObject.SetActive(isPressed);
 
         //TODO: display player two UI
         Player2.SetActive(true);
         P2Character.SetActive(true);
-
     }
 
 }
