@@ -4,11 +4,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //enum Player
-    //{
-    //    Player,
-    //    Player2
-    //}
     //allows us to use all the actions in the "InputAction" assets
     [SerializeField] InputActionAsset InputActions;
 
@@ -43,32 +38,29 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        InputActions.FindActionMap("Player2").Enable();
+        InputActions.FindActionMap(this.name).Enable();
     }
     private void OnDisable()
     {
-        InputActions.FindActionMap("Player2").Disable();// Type.ToString()
+        InputActions.FindActionMap(this.name).Disable();
     }
 
 
     private void Awake()
     {
-        MoveAction = InputSystem.actions.FindAction("Move");
-        JumpAction = InputSystem.actions.FindAction("Jump");
-        PunchAction = InputSystem.actions.FindAction("Punch");
-        FireBallAction = InputSystem.actions.FindAction("FireBall");
+
+        Debug.Log("This is " + this.name);
+        MoveAction = InputActions.FindActionMap(this.name).FindAction("Move");
+        JumpAction = InputActions.FindActionMap(this.name).FindAction("Jump");
+        PunchAction = InputActions.FindActionMap(this.name).FindAction("Punch");
+        FireBallAction = InputActions.FindActionMap(this.name).FindAction("FireBall");
 
         controller = GetComponent<CharacterController>();
         OGGravity = Gravity;
 
-        if (InputActions.Equals("Player"))
-        {
-            Debug.Log("It's first player");
-        }
-        else
-        {
-            Debug.Log("It's second player");
-        }
+
+
+        //Debug.Log("This is " + this.name);
     }
 
     void FixedUpdate()
@@ -130,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
     void FireBallPunch(int MetersNeeded = 2)
     {
         //player1
-        if (GameManager.Instance.GetMeterAmount() < MetersNeeded && FireBallAction.WasPerformedThisFrame())
+        if (GameManager.Instance.GetMeterAmount() < MetersNeeded && FireBallAction.WasCompletedThisFrame() && this.name == "Player")
         {
             //display "Not enough meter"
             StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabel));
@@ -138,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(GameManager.Instance.DisplayWarningMeters(MetersNeeded, GameManager.Instance.NotBarMeterP1));
             return;
         }
-        else if (GameManager.Instance.GetMeterAmount() >= MetersNeeded && FireBallAction.WasPerformedThisFrame())
+        else if (GameManager.Instance.GetMeterAmount() >= MetersNeeded && FireBallAction.WasCompletedThisFrame() && this.name == "Player")
         {
             Instantiate(FireBall, PunchBox.transform.position, PunchBox.transform.rotation);
             for (int i = 0; i < MetersNeeded; i++)
@@ -148,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //player2
-        if (GameManager.Instance.GetMeterAmountP2() < MetersNeeded && FireBallAction.WasPerformedThisFrame())
+        if (GameManager.Instance.GetMeterAmountP2() < MetersNeeded && FireBallAction.WasCompletedThisFrame() && this.name == "Player2")
         {
             //display "Not enough meter"
             StartCoroutine(GameManager.Instance.DisplayWarning(GameManager.Instance.NoMeterLabelP2));
@@ -156,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(GameManager.Instance.DisplayWarningMeters(MetersNeeded, GameManager.Instance.NotBarMeterP2));
             return;
         }
-        else if (GameManager.Instance.GetMeterAmountP2() >= MetersNeeded && FireBallAction.WasPerformedThisFrame())
+        else if (GameManager.Instance.GetMeterAmountP2() >= MetersNeeded && FireBallAction.WasCompletedThisFrame() && this.name == "Player2")
         {
             Instantiate(FireBall, PunchBox.transform.position, PunchBox.transform.rotation);
             for (int i = 0; i < MetersNeeded; i++)
