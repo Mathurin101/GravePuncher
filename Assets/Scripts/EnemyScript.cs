@@ -11,6 +11,8 @@ public class EnemyScript : MonoBehaviour, IDamage
     [SerializeField] int Health = 1;
     [SerializeField] EnemyType Type;
 
+    private Collider WhoCollided;
+
     int RandomNUM;
 
     void Start()
@@ -34,12 +36,13 @@ public class EnemyScript : MonoBehaviour, IDamage
 
         if (Health <= 0 && Type == EnemyType.Grave)
         {
-            if (AttackMoves.isPlayer1)
+            if (WhoCollided.CompareTag("Player"))
             {
                 GameManager.Instance.AddMeter(GameManager.Instance.GetMeter(), ref GameManager.Instance.CounterP1);
                 GameManager.Instance.AddScore(100, GameManager.Instance.GetScore());
             }
-            if (AttackMoves.isPlayer2)
+
+            if (WhoCollided.CompareTag("Player2"))
             {
                 GameManager.Instance.AddMeter(GameManager.Instance.GetMeterP2(), ref GameManager.Instance.CounterP2);
                 GameManager.Instance.AddScore(100, GameManager.Instance.GetScoreP2());
@@ -54,19 +57,23 @@ public class EnemyScript : MonoBehaviour, IDamage
 
         if (Health <= 0 && Type == EnemyType.Zombie)
         {
-
-            if (AttackMoves.isPlayer1)
+            if (WhoCollided.CompareTag("Player"))
             {
                 GameManager.Instance.AddMeter(GameManager.Instance.GetMeter(), ref GameManager.Instance.CounterP1);
                 GameManager.Instance.AddScore(500, GameManager.Instance.GetScore());
             }
-            if (AttackMoves.isPlayer2)
+            if (WhoCollided.CompareTag("Player2"))
             {
                 GameManager.Instance.AddMeter(GameManager.Instance.GetMeterP2(), ref GameManager.Instance.CounterP2);
                 GameManager.Instance.AddScore(500, GameManager.Instance.GetScoreP2());
             }
             Destroy(gameObject);
         }
-
     }
+
+    public void OnTriggerEnter(Collider Other)
+    {
+        WhoCollided = Other;
+    }
+
 }

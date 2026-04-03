@@ -2,11 +2,14 @@ using System.Collections;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+    InputActionAsset InputActions;
 
     [Header("Player1 UI/items")]
     [SerializeField] public GameObject Player;
@@ -19,9 +22,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Player2 UI/items")]
     [SerializeField] public GameObject Player2;
-    [SerializeField] public GameObject P2Character;
+    [SerializeField] public GameObject Player2UI;
     [SerializeField] public Image[] BarMeterP2;
     [SerializeField] public Image[] NotBarMeterP2;
+    [SerializeField] public Transform P2SpawnLoc;
     public int CounterP2;
 
     [SerializeField] TextMeshProUGUI ScoreP2;
@@ -56,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     [Header("MISC")]
     [SerializeField] TextMeshProUGUI PressStart;
-    bool isPressed;
+    bool isPressed = true;
 
     [SerializeField] TextMeshProUGUI Rounds;
 
@@ -68,6 +72,10 @@ public class GameManager : MonoBehaviour
     {
         //needed to initiate this class
         if (!Instance) { Instance = this; }
+
+        Player.name = "Player";
+        //Player2.name = "Player2";
+
 
         //Used to stop time later
         OGTimeScale = Time.deltaTime;
@@ -90,30 +98,28 @@ public class GameManager : MonoBehaviour
 
         PressStart.gameObject.SetActive(false);
 
-        isPressed = true;
+
         StartCoroutine(FlashesForever(PressStart));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("1"))
+        if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
             AddMeter(BarMeterP1, ref CounterP1);
         }
 
-        if (Input.GetKeyDown("2") && P2Character.activeSelf)
+        if (Keyboard.current.digit2Key.wasPressedThisFrame && Player2UI.activeSelf)
         {
             AddMeter(BarMeterP2, ref CounterP2);
         }
 
         //will remove text if true
-        if (Input.GetKey("k"))
+        if (Keyboard.current.kKey.wasPressedThisFrame)
         {
             isPressed = false;
         }
-
-
     }
 
     public void PauseGame()
@@ -175,7 +181,7 @@ public class GameManager : MonoBehaviour
     {
         if ((int.Parse(Score.text) + AddedNumber) > 1000)
         {
-            ScoreP1.text = "0" + (int.Parse(Score.text) + AddedNumber).ToString();
+            Score.text = "0" + (int.Parse(Score.text) + AddedNumber).ToString();
             SetHighestScore();
 
         }
@@ -280,11 +286,13 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(WaitTime);
 
         } while (isPressed);
-        TextShown.gameObject.SetActive(false);
+        TextShown.gameObject.SetActive(isPressed);
 
         //TODO: display player two UI
-        Player2.SetActive(true);
-        P2Character.SetActive(true);
+        Player2UI.SetActive(!isPressed);
+        Player2.SetActive(!isPressed);
+        Player2.name = "Player2";
+
 
     }
 
