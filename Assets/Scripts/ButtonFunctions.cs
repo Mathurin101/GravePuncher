@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 public class ButtonFunctions : MonoBehaviour
 {
 
+    //TODO:controls/keybinds/rebinding
+
+    //TODO:stats tab --need the saveStates
+
     public void Resume()
     {
         GameManager.Instance.UnpauseGame();
@@ -16,8 +20,16 @@ public class ButtonFunctions : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void Play()
+    public void PlayLocal()
     {
+        //TODO: bring to the -- local play game scenes 
+        //Time.timeScale = 1.0f;
+        //SceneManager.LoadScene();
+    }
+
+    public void PlayOnline()
+    {
+        //TODO: bring to the -- online play game scenes or sever space with list and everything
         //Time.timeScale = 1.0f;
         //SceneManager.LoadScene();
     }
