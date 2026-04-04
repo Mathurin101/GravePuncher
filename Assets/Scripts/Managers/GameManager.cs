@@ -120,22 +120,24 @@ public class GameManager : MonoBehaviour
         {
             isPressed = false;
         }
+
+        PauseMenu();
     }
 
     public void PauseGame()
     {
         isPaused = true;
         Time.timeScale = 0;//freezes time
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
     }
 
     public void UnpauseGame()
     {
         isPaused = false;
         Time.timeScale = OGTimeScale;//Unfreezes time
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         //turn off the active menu and set it to null 
         MenuActive.SetActive(false);
@@ -144,7 +146,8 @@ public class GameManager : MonoBehaviour
 
     public void PauseMenu()
     {
-        if (Input.GetButtonDown("Cancel"))
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (MenuActive == null)
             {

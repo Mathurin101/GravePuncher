@@ -86,15 +86,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Cancel",
-                    "type": "Button",
-                    "id": "33b4831a-20d8-4cbc-9f93-f6683aded644",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -342,17 +333,6 @@
                 },
                 {
                     "name": "",
-                    "id": "a205143b-fe6f-4817-a5ec-6a0975898eb5",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "Tap",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "0a9c275e-622f-4edb-a5c5-e93ee734ffe3",
                     "path": "<Keyboard>/f",
                     "interactions": "",
@@ -455,15 +435,6 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "0c96fdd7-4acc-4e8c-a30b-b16953318412",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Cancel",
-                    "type": "Button",
-                    "id": "c469fcca-a3db-4908-ab27-ff6d80d247af",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -677,17 +648,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "530f2c13-bcbb-4db6-b085-bd53ed6ea198",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "Tap",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
