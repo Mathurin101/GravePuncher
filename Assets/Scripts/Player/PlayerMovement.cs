@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void Awake()
+    private void Start()
     {
         MoveAction = InputActions.FindActionMap(this.name).FindAction("Move");
         JumpAction = InputActions.FindActionMap(this.name).FindAction("Jump");
@@ -71,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
+
+
         if (controller.isGrounded)
         {
             JumpVelocity = Vector3.zero;

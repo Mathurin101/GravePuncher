@@ -34,6 +34,29 @@ public class ButtonFunctions : MonoBehaviour
         //SceneManager.LoadScene();
     }
 
+    public void Previous()
+    {
+        GameManager.Instance.PreviousButton();
+    }
+
+    public void Player1Info()
+    {
+        GameManager.Instance.InfoMenuP1Button();
+    }
+
+
+
+    public void Player2Info()
+    {
+        GameManager.Instance.InfoMenuP2Button();
+
+    }
+
+    public void Close()
+    {
+        GameManager.Instance.CloseButton();
+    }
+
     public void Exit()
     {
         SceneManager.LoadScene("Name of main menu");

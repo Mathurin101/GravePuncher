@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -38,7 +39,29 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject MenuShop;
     [SerializeField] GameObject MenuLose;
     [SerializeField] GameObject MenuWin;
+    [SerializeField] GameObject MenuInfo;
+    [SerializeField] GameObject MenuInfoP1;
+    [SerializeField] GameObject MenuInfoP1Fist;
+    [SerializeField] GameObject MenuInfoP2;
+    [SerializeField] GameObject MenuInfoP2Fist;
 
+    [Header("Player1 Inputs Display")]
+    [SerializeField] TextMeshProUGUI P1up;
+    [SerializeField] TextMeshProUGUI P1down;
+    [SerializeField] TextMeshProUGUI P1left;
+    [SerializeField] TextMeshProUGUI P1right;
+    [SerializeField] TextMeshProUGUI P1jump;
+    [SerializeField] TextMeshProUGUI P1punch;
+    [SerializeField] TextMeshProUGUI P1fireball;
+
+    [Header("Player2 Inputs Display")]
+    [SerializeField] TextMeshProUGUI P2up;
+    [SerializeField] TextMeshProUGUI P2down;
+    [SerializeField] TextMeshProUGUI P2left;
+    [SerializeField] TextMeshProUGUI P2right;
+    [SerializeField] TextMeshProUGUI P2jump;
+    [SerializeField] TextMeshProUGUI P2punch;
+    [SerializeField] TextMeshProUGUI P2fireball;
 
     //shows highest score
 
@@ -73,12 +96,8 @@ public class GameManager : MonoBehaviour
         //needed to initiate this class
         if (!Instance) { Instance = this; }
 
-        Player.name = "Player";
-        //Player2.name = "Player2";
-
-
         //Used to stop time later
-        OGTimeScale = Time.deltaTime;
+        OGTimeScale = Time.timeScale;
 
         CounterP1 = BarMeterP1.Length;
         CounterP2 = BarMeterP2.Length;
@@ -98,8 +117,11 @@ public class GameManager : MonoBehaviour
 
         PressStart.gameObject.SetActive(false);
 
+        MenuInfoP1Fist.SetActive(false);
+        MenuInfoP2Fist.SetActive(false);
 
         StartCoroutine(FlashesForever(PressStart));
+        SetAllBindDisplays();
     }
 
     // Update is called once per frame
@@ -122,6 +144,7 @@ public class GameManager : MonoBehaviour
         }
 
         PauseMenu();
+        SetAllBindDisplays();
     }
 
     public void PauseGame()
@@ -146,7 +169,6 @@ public class GameManager : MonoBehaviour
 
     public void PauseMenu()
     {
-
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (MenuActive == null)
@@ -161,6 +183,62 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    void SetAllBindDisplays()
+    {
+        P1up.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.up);
+        P1down.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.down);
+        P1left.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.left);
+        P1right.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.right);
+        P1jump.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.Jump);
+        P1punch.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.punch);
+        P1fireball.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.FireBall);
+        P1fireball.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.FireBall);
+
+        P2up.text = SaveStates.SaveThis.GetControlsP2((int)SaveStates.PlayerMove.up);
+        P2down.text = SaveStates.SaveThis.GetControlsP2((int)SaveStates.PlayerMove.down);
+        P2left.text = SaveStates.SaveThis.GetControlsP2((int)SaveStates.PlayerMove.left);
+        P2right.text = SaveStates.SaveThis.GetControlsP2((int)SaveStates.PlayerMove.right);
+        P2jump.text = SaveStates.SaveThis.GetControlsP2((int)SaveStates.PlayerMove.Jump);
+        P2punch.text = SaveStates.SaveThis.GetControlsP2((int)SaveStates.PlayerMove.punch);
+        P2fireball.text = SaveStates.SaveThis.GetControlsP2((int)SaveStates.PlayerMove.FireBall);
+    }
+
+    public void InfoMenuP1Button()
+    {
+        MenuActive.SetActive(false);//Pause Menu
+
+        MenuInfoP1Fist.SetActive(true);
+        MenuInfoP2Fist.SetActive(false);
+
+        MenuActive = MenuInfo;
+        MenuActive.SetActive(true);
+
+        MenuInfoP1.SetActive(true);
+        MenuInfoP2.SetActive(false);
+    }
+
+    public void InfoMenuP2Button()
+    {
+        MenuInfoP1.SetActive(false);
+        MenuInfoP2.SetActive(true);
+
+        MenuInfoP1Fist.SetActive(false);
+        MenuInfoP2Fist.SetActive(true);
+    }
+
+    public void PreviousButton()
+    {
+        MenuActive.SetActive(false);//menuInfo
+
+        MenuActive = MenuPause;
+        MenuActive.SetActive(true);
+    }
+
+    public void CloseButton()
+    {
+        UnpauseGame();
+    }
+
 
     public void AddMeter(Image[] Meter, ref int Counter, bool AddOne = true)
     {
@@ -291,12 +369,10 @@ public class GameManager : MonoBehaviour
         } while (isPressed);
         TextShown.gameObject.SetActive(isPressed);
 
-        //TODO: display player two UI
         Player2UI.SetActive(!isPressed);
         Player2.SetActive(!isPressed);
         Player2.name = "Player2";
-
-
     }
+
 
 }
