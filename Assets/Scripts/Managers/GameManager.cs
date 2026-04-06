@@ -183,7 +183,13 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     void SetAllBindDisplays()
+    {
+        SetPlayer1Binds();
+        SetPlayer2Binds();
+    }
+    void SetPlayer1Binds()
     {
         P1up.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.up);
         P1down.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.down);
@@ -193,7 +199,9 @@ public class GameManager : MonoBehaviour
         P1punch.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.punch);
         P1fireball.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.FireBall);
         P1fireball.text = SaveStates.SaveThis.GetControlsP1((int)SaveStates.PlayerMove.FireBall);
-
+    }
+    void SetPlayer2Binds()
+    {
         P2up.text = SaveStates.SaveThis.GetControlsP2((int)SaveStates.PlayerMove.up);
         P2down.text = SaveStates.SaveThis.GetControlsP2((int)SaveStates.PlayerMove.down);
         P2left.text = SaveStates.SaveThis.GetControlsP2((int)SaveStates.PlayerMove.left);
