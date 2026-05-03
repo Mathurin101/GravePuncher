@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         OGGravity = Gravity;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         MoveAmount = MoveAction.ReadValue<Vector2>();
         MovePlayer();
